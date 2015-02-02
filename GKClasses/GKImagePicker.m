@@ -125,11 +125,12 @@
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         
         self.popoverController = [[UIPopoverController alloc] initWithContentViewController:self.imagePickerController];
-        [self.popoverController presentPopoverFromRect:self.popoverView.frame
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self.popoverController presentPopoverFromRect:self.popoverView.frame
                                                 inView:self.presentingViewController.view
                               permittedArrowDirections:UIPopoverArrowDirectionAny
                                               animated:YES];
-        
+        }];
     } else {
         
         [self.presentingViewController presentViewController:self.imagePickerController animated:YES completion:nil];
