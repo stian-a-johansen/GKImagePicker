@@ -41,12 +41,7 @@
 # pragma mark Private Methods
 
 - (void)_hideController{
-    if (UIUserInterfaceIdiomPad == UI_USER_INTERFACE_IDIOM()) {
-        [self.popoverController dismissPopoverAnimated:YES];
-    } else {
         [self.imagePickerController dismissViewControllerAnimated:YES completion:nil];
-    }
-
 }
 
 #pragma mark -
@@ -109,33 +104,16 @@
                                                     otherButtonTitles:NSLocalizedString(@"Image from Camera", @"Image from Camera"), NSLocalizedString(@"Image from Library", @"Image from Library"), nil];
     actionSheet.delegate = self;
     
-    if (UIUserInterfaceIdiomPad == UI_USER_INTERFACE_IDIOM()) {
-        [actionSheet showFromRect:self.popoverView.frame inView:self.presentingViewController.view animated:YES];
-    } else {
         if (self.presentingViewController.navigationController.toolbar) {
             [actionSheet showFromToolbar:self.presentingViewController.navigationController.toolbar];
         } else {
             [actionSheet showInView:self.presentingViewController.view];
         }
-    }
 }
 
 - (void)presentImagePickerController
 {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        
-        self.popoverController = [[UIPopoverController alloc] initWithContentViewController:self.imagePickerController];
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            [self.popoverController presentPopoverFromRect:self.popoverView.frame
-                                                inView:self.presentingViewController.view
-                              permittedArrowDirections:UIPopoverArrowDirectionAny
-                                              animated:YES];
-        }];
-    } else {
-        
         [self.presentingViewController presentViewController:self.imagePickerController animated:YES completion:nil];
-        
-    }
 }
 
 - (void)showCameraImagePicker {
