@@ -113,7 +113,9 @@
 
 - (void)presentImagePickerController
 {
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self.presentingViewController presentViewController:self.imagePickerController animated:YES completion:nil];
+    }];
 }
 
 - (void)showCameraImagePicker {
